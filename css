@@ -70,3 +70,28 @@ GCT has strong tie-ups with different industries, R&D labs and Public sector com
 </span>
 </body>
 </html>
+
+
+h2 {
+  text-align: left;
+  font-size: 1emh;
+  color: #FF5733;
+  text-decoration: underline;
+}
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  font-family: Arial;
+  justify-content: center;
+}
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.navbar a:hover {
+  background-color: red;
+}
