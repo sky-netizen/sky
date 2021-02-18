@@ -1,0 +1,135 @@
+ <!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Form Validation</title>
+        <style>
+	body{
+          height: 800px;width: 800px;
+	  background-color: #B3B6B3;
+        }
+        body{
+  	}
+        label{
+            width:200px;
+            display: inline-block;
+        }
+        input{
+            margin:8px;
+            height:20px;
+            width: 280px;
+        }
+        button{
+            background-color: black;
+            margin:150px;
+            padding:5px;
+	    width: 100px;
+            height: 50px;
+            font-family: Helvetica, Arial, sans-serif;
+	    color: white;
+	    text-align: center;
+        }</style> 
+        <meta name="description" content="form validating page">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body> 
+        <form>
+            <h2>STUDENT REGISTRATION FORM</h2>
+            <div class="name-field"><label for="name">Name </label><input type="textbox" id="name" placeholder="name" pattern="[a-zA-Z][a-zA-Z\s]*" required autocomplete="off"/><br></div>
+            <label for="mail">Email </label><input type="textbox" id="mail" placeholder="abcd@admin.com"  required autocomplete="off"/><br>
+            <label for="dob">Date of Birth </label><input type="textbox" placeholder="DD/MM/YYYY" id="dob" required autocomplete="off"/><Br>
+            <label for="age">Age   </label><label id="age" >   </label><br>
+            <button type="submit" onmouseover="validateDate()" onclick="validate()">Submit</button>
+        </form>
+        <script>function validate(){
+        validateName();
+        validateMail();}
+	function validateName() {
+        var name = document.getElementById("name").value;
+        var c = 0;
+	var i;
+        for(var i=0;i<name.length;i++){
+        if(name[i]===' ')
+            c+=1;
+            if(((name.charCodeAt(i)<65 || name.charCodeAt(i)>122 )&& name.charCodeAt(i)!=32) || c>2) 
+        {
+            alert("Enter only alphabets with maximum 2 white spaces");
+            break;
+        } } }
+        function validateDate()
+        {
+        	var flag=true; var dt; var month; var year;
+        	var date=document.getElementById("dob").value;
+        	dt=parseInt(date[0] + date[1]);
+         	month=parseInt(date[3]+date[4]);
+         	year=parseInt(date[6]+date[7]+date[8]+date[9]);
+        	if(year>2020 || year<1800){
+            		alert("Year Invalid-DOB");
+           		flag=false;
+        	}
+        	else if(month>12){
+            		alert("Month invalid-DOB")
+            		flag=false;
+        	}
+        	else if((month==4 ||month==6||month==9||month==11)&&dt>30)
+        	{
+                	alert("date Invalid-DOB")
+                	flag=false;
+        	}
+        	else if(month==2) {
+            	if(year%4==0 || year%100==0) {
+                    if(dt>29){
+                        alert("date Invalid-DOB");
+                        flag=false;} }
+                else{
+                    if(dt>28){
+                        alert("date Invalid-DOB");
+                        flag=false;}}}
+            	else if(dt>31){
+                	alert("Date Invalid-DOB");
+                	flag=false;}
+                	agee=document.getElementById("age");
+            	if(flag==true){
+                	var today=new Date();
+                	var mn= today.getMonth();
+                	var age=0;
+                	mn+=1;
+                	var da=today.getDate();
+                if(mn>month)
+                	age=2020-year;
+                if(mn<month)
+                        age=2020-year-1;
+                else if(month==mn){
+                    if(da>dt)
+			age=2020-year;
+                  
+                    else
+			age=2020-year-1;
+                        }
+                agee.textContent=age;}
+             else{
+                agee.textContent="Invalid dob, cannot calculate..." 
+	} }   
+        function validateMail()
+        {
+            value=document.getElementById("mail").value;
+            if (value.indexOf('@')<1) {
+                alert("Mail Invalid");
+            } 
+	    else {
+                var parts = value.split('@');
+                var domain = parts[1];
+                if(parts[0].charCodeAt(0)<65 ||  parts[0].charCodeAt(0)>122)
+                alert("mail invalid");
+                if (domain.indexOf('.') <2) {
+                    alert("Mail Invalid");
+                } 
+		else {
+                    var domainParts = domain.split('.');
+                    var ext = domainParts[1];
+                    if (ext.length > 4 || ext.length < 2) {
+                        alert("Invalid Mail");
+                    }}}}
+	</script>
+    </body>
+</html>
