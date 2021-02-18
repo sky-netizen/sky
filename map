@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<center><h1><u><b>IMAGE MAPPING</b></u></h1></center><br><br>
+<center><img src="https://lh3.googleusercontent.com/proxy/hIPbFMrgkgh3c4nRH6vvTI1PQ2hBQKeBkTX6s8gItlVHX7wiabi0w95gteCiqJcArgI6IGgZ-2u6i40I69_3ljnq5OP10lmDVWmizZ9ZEQ9bIeFfV_8M82vwrlrfX5Xu6K4qXUSALpth_DGRFsHU-XBR3zDIIlHrZRiBao8" alt="Gadgets" usemap="#gadgetsmap" target="_blank"></center>
+<map name="gadgetsmap" />
+	<area shape="rect" coords="358,58,151,221" alt="Laptop" href="laptop.html" target="_blank" />
+	<area shape="rect" coords="147,186,114,249" alt="Mobile" href="mobile.html" target="_blank" />
+	<area shape="poly" coords="306,278,301,262,310,247,324,237,335,231,343,241,348,253,340,267,326,281" alt="Mouse" href="mouse.html" target="_blank"/>
+	<area shape="circle" coords="453,203,17" alt="Lens" href="lens.html"target="_blank" />
+	<area shape="circle" coords="98,96,24" alt="Beverages" href="Beverages.html" target="_blank" />
+	<area shape="rect" coords="370,164,410,234" alt="Camera" href="camera.html" target="_blank" />
+	<area shape="circle" coords="60,170,46" alt="Headphone" href="headphones.html" target="_blank" />
+	<area shape="circle" coords="443,85,53" alt="Grass" href="grass.html" target="_blank" />
+	<area shape="poly" coords="361,130,370,119,387,137,375,148" alt="Film roll" href="filmroll.html" target="_blank" />
+</map>
+</body>
+</html>
+
+LAPTOP :
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Laptop</title>
+</head>
+<body>
+	<center><h1><b><u>LAPTOP</u></b></h1></center>
+	<br>
+	<center><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT-I-4Ry9RDKTZxnnDdYAyjzUCDvcTaNt-zSg&usqp=CAU" alt="laptop"></center><br><br>
+	<p>A laptop, is a small, portable personal computer (PC) with a "clamshell" form factor, typically having a thin LCD or LED computer screen mounted on the inside of the upper lid of the clamshell and an alphanumeric keyboard on the inside of the lower lid.Laptops are folded shut for transportation, and thus are suitable for mobile use. Its name comes from lap, as it was deemed to be placed on a person's lap when being used. Today, laptops are commonly used in a variety of settings, such as at work, in education, for playing games, web browsing, for personal multimedia, and general home computer use.
+	Laptops combine all the input/output components and capabilities of a desktop computer, including the display screen, speakers, a keyboard, data storage device, sometimes an optical disc drive, pointing devices (such as a touchpad or trackpad), with an operating system, a processor and memory into a single unit. Most modern laptops feature integrated webcams and built-in microphones, while many also have touchscreens. Laptops can be powered either from an internal battery or by an external power supply from an AC adapter. Hardware specifications, such as the processor speed and memory capacity, significantly vary between different types, makes, models and price points.</p>
+</body>
+</html>
