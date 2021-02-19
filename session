@@ -41,4 +41,17 @@ public class Session extends HttpServlet{
 		out.println("</html>");
        }
 }
-		
+
+web.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+	<servlet>
+		<servlet-name>sessiondemo</servlet-name>
+		<servlet-class>Session</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>sessiondemo</servlet-name>
+		<url-pattern>/test</url-pattern>
+	</servlet-mapping>
+</web-app>
