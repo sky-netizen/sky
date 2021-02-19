@@ -1,0 +1,66 @@
+import java.io.File;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+public class DomParserDemo {
+    public String[] searchStudent(String search){
+        String[] s = new String[5];
+        try {
+            File inputFile = new File("\\input.xml");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(inputFile);
+            doc.getDocumentElement().normalize();
+            System.out.println("Root Element :"+doc.getDocumentElement().getNodeName());
+            NodeList nList = doc.getElementsByTagName("student");
+            System.out.println("---------------------------------------");
+            for (int temp = 0; temp < nList.getLength(); temp++) {
+                Node nNode = nList.item(temp);
+                System.out.println("Current Element"+nNode.getNodeName());
+                if(nNode.getNodeType() == Node.ELEMENT_NODE){
+                    Element eElement =(Element)nNode;
+                    if(eElement.getAttribute("rollno").equals(search)){
+                        s[0]=eElement.getAttribute("rollno");
+                        s[1]=eElement.getElementsByTagName("name").item(0).getTextContent();
+                        s[2]=eElement.getElementsByTagName("dob").item(0).getTextContent();
+                        s[3]=eElement.getElementsByTagName("year").item(0).getTextContent();
+                        s[4]=eElement.getElementsByTagName("marks").item(0).getTextContent();
+                        return s;
+                    }
+                }
+            } 
+        } catch (Exception e) {
+            //TODO: handle exception
+            e.printStackTrace();
+        }return null;
+    }
+}
+
+fetch.html
+
+<html>
+<head>
+<style>
+input[type=text] {
+	box-sizing: border-box;
+	padding: 5px 6px;
+	margin: 5px 0;
+  	border: 2px solid black;
+  	border-radius: 4px;
+}
+</style>
+</head>
+<body style="background-color: #FF5733;">
+	<form action="fetchdata" method="get">
+	<center><h1 style="color: white;">STUDENT INFORMATION GADGET</h1><br /><br />
+	<h2><label style="color: white;">Enter the Roll number : </label></h2>
+	<input type="text" name="data"></input>
+	<br><br><br>
+	<input class="button" type="submit" value="Submit"/>
+	</form>
+</body>
+</html>
