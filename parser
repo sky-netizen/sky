@@ -1,0 +1,52 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.io.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.*;
+
+public class ParserServlet extends HttpServlet{
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws IOException,ServletException
+    {
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Fetched Data</title>");
+        out.println("</head>");
+        out.println("<body bgcolor=\"green\">");
+        out.println("<center><strong><h1>STUDENT DETAILS</h1></strong></center>");
+        DomParserDemo parser = new DomParserDemo();
+        String s[] = parser.searchStudent(request.getParameter("data"));
+        if(s != null){
+            out.println("<center><h3>Roll No : " + s[0] + "</h3></center>");
+            out.println("<center><h3>Name : " + s[1] + "</h3></center>");
+            out.println("<center><h3>DOB : " + s[2] + "</h3></center>");
+            out.println("<center><h3>Year : " + s[3] + "</h3></center>");
+            out.println("<center><h3>CGPA : " + s[4] + "</h3></center>");
+        }
+        else{
+            out.println("<center><h3>No Data Available!</h3></center>");
+        }
+        out.println("</body>");
+        out.println("<html>");
+    }
+}
+
+web.xml
+
+<?xml version = "1.0" encoding ="UTF-8"?>
+<web-app>
+<servlet>
+	<servlet-name>domdemo</servlet-name>
+	<servlet-class>ParserServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>domdemo</servlet-name>
+	<url-pattern>/fetchdata</url-pattern>
+</servlet-mapping>	
+	
+</web-app>
