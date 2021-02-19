@@ -1,0 +1,84 @@
+reg.html
+
+<html> 
+<head>
+<style> 
+input[type=text] {
+  border: 2px solid green;
+  }
+.button{ 
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.form{
+	margin: 0 auto;
+	width: 500px;
+}
+
+.form label{
+	display: inline-block;
+	text-align: right;
+	float: left;
+	}
+
+.form input{
+	display: inline-block;
+	text-align: left;
+	float: right;	
+	}
+</style>
+</head>
+<body style="background-color:LightGray;">
+<h1 style="color: green;"><center>REGISTRATION FORM</center></h1>\
+<h2>
+<form class="form" action="http://localhost:2010/jsp3/register.jsp" method="post">  
+<div class="reg">
+<label>NAME</label> 
+<input type="text" name="name" required/><br/><br/> 
+<label>REGISTER NO</label>
+<input type="text" name="regno" required/><br/><br/> <br/> 
+<label>DEPARTMENT</label> 
+<input type="text" name="dept" required/><br/><br/> 
+<label>EMAIL ID</label>
+<input type="text" name="email" required/><br/><br/><br/><br/>  
+<center><input class='button'type="submit" value="Register"/></center> 
+ </h2>
+</div> 
+</form> 
+</body>  
+</html> 
+
+reg.jsp
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+pageEncoding="ISO-8859-1"%>
+<%@page import="java.sql.*,java.util.*"%>
+
+
+<%
+String a=request.getParameter("regno");  
+String b=request.getParameter("name"); 
+String c=request.getParameter("dept"); 
+String d=request.getParameter("email");      
+      
+try{  
+Class.forName("com.mysql.jdbc.Driver");  
+Connection con=DriverManager.getConnection( "jdbc:mysql://localhost:3306/organisation","root","sandy@6");  
+PreparedStatement ps=con.prepareStatement(  
+"insert into regstudent values(?,?,?,?)"); 
+ps.setString(1,a);  
+ps.setString(2,b);  
+ps.setString(3,c);  
+ps.setString(4,d);  
+int i=ps.executeUpdate();        
+if(i>0)  
+out.print("You have registered successfully...");    
+          
+}catch (Exception e2) {System.out.println(e2);}    
+%>
