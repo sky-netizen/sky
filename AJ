@@ -1,0 +1,225 @@
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.io.*;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
+public class AjaxFormServlet extends HttpServlet{
+	public void doGet(HttpServletRequest request,HttpServletResponse response) 
+								throws ServletException,IOException{
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+
+		String field_name = request.getParameter("field");
+		String value = request.getParameter("data");
+
+		if(field_name.equals("username")){
+			if(value!=" " && value!=null){
+				String regex1 = "^[a-zA-Z]+$";
+				Pattern pattern1 = Pattern.compile(regex1);
+				Matcher matcher1 = pattern1.matcher(value);
+				if(value.length()<4 || value.length()>15 || !matcher1.matches()){
+					out.write("username should contain only alphabets!");
+				}
+				else{
+					out.write("valid");
+				}
+			}
+		}
+
+
+		if(field_name.equals("emailId")){
+			if(value!=" " && value!=null){
+				String regex = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+[.][a-z]+$";
+				Pattern pattern = Pattern.compile(regex);
+				Matcher matcher = pattern.matcher(value);
+				if(!matcher.matches()){
+					out.write("Invalid email address!");
+				}
+				else{
+					out.write("valid");
+				}
+			}
+		}
+
+
+		if(field_name.equals("dob")){
+			if(value!=" " && value!=null){
+				int user_age = Integer.parseInt(value);
+				if(user_age<5 || user_age>99){
+					out.write("Invalid age!");
+				}
+				else{
+						out.write("valid");
+					}
+				}
+		}
+		
+
+		if(field_name.equals("password1")){
+			if(value!=" " && value!=null){
+				if(value.length()<6 || value.length()>15)
+				{
+					out.write("Password must be 6 to 15 characters!");
+				}
+				else{
+					out.write("valid");
+				}
+			}
+		}
+		out.close();
+	}
+
+	public void doPost(HttpServletRequest request,HttpServletResponse response) 
+	throws ServletException,IOException{
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		String username = request.getParameter("username");
+		out.println("<strong><h1 style ='color:green;'>Thanks for registering!</h1><strong>"+username);
+		out.close();
+	}
+}
+
+index.html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ajax Validation Form</title>
+<style type="text/css">
+small{
+      	display: none;
+      	color: white;
+      	font-size: 1em;
+}
+body{
+	background-color: DARKCYAN;
+	position: absolute;
+	top: 10px;
+  	left: 10px;
+  	right: 10px;
+  	bottom: 10px;
+  	border: 10px solid yellow;
+	
+}
+form{
+	margin: 0 auto;
+	width: 500px;
+}
+
+form label{
+	display: inline-block;
+	text-align: right;
+	float: left;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: strong;
+	}
+
+form input{
+	display: inline-block;
+	text-align: left;
+	float: right;
+}
+input[type=text]:focus {
+  background-color: #FADED8;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<center><form action="AjaxFormServlet" method="POST" name="form1" onsubmit="return validator(this);">
+<div>
+	<strong><center><h1>FORM VALIDATION</h1></center></strong></div><br><br>
+<div>
+   	<label for="name">Username</label>
+   	<input type="text" name="username" id="name" align="center" onchange="check(this.name,this.value);"><small id="usernamemsg"></small>
+</div><br><br>
+<div>	
+	<label for="mail">Email</label>
+   	<input type="text" name="emailId" id="mail" align="center" onchange="check(this.name,this.value);">
+                <small id="emailIdmsg"></small></div><br><br>
+<div>
+   	<label for="age">Age</label>
+   	<input type="text" id="age" name="dob" align="center" onchange="check(this.name,this.value);">
+                <small id="dobmsg"></small></div><br><br>
+<div>
+   	<label for="mobile">Phone</label>
+   	<input type="text" id="phone" align="center" name="phone" maxlength ="10">
+                <small id="phone"></small></div><br><br>
+<div>
+   	<label for="password1">Password</label>
+   	<input type="password" name="password1" id="password1" align="center" onchange="check(this.name,this.value);">
+                <small id="password1msg"></small></div><br><br>
+<div>
+          <label for="password2">Confirm Password</label>
+          <input type="password" name="password2" id="password2" align="center" onchange="passwordcheck(this.value);">
+          <small id="password2msg"></small></div><br><br><br>
+<div><button id="btn1">Submit</button>
+<button id="btn2" type="reset">Reset</button><br></div>  
+</form> </center>  
+   		   
+<script type="text/javascript">
+function check(field,data){
+      if(data!=null&&data!=""){
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function(){
+      if(this.readyState ==4  && this.status == 200){
+            if(this.responseText!=null && this.responseText!="")
+            {
+              document.getElementById(field+"msg").style.display = "block";
+              document.getElementById(field+"msg").innerHTML = this.responseText;
+              document.getElementById("btn1").disabled = true;
+            }
+           if(this.responseText == "valid"){
+              document.getElementById(field+"msg").style.display = "none";
+              document.getElementById("btn1").disabled = false;
+           }
+
+        }
+      };
+      xhttp.open("GET","AjaxFormServlet?field="+field+"&data="+data,true);
+      xhttp.send();
+    }
+  }
+  
+
+  function passwordcheck(password2){
+    var password1 = document.getElementById("password1").value;
+    if(password1 !== password2){
+      document.getElementById("password2msg").style.display = "block";
+      document.getElementById("password2msg").innerHTML ="Incorrect Password!";
+      document.getElementById("btn1").disabled = true;
+    }
+    else{
+          document.getElementById("password2msg").style.display = "none";
+          document.getElementById("btn1").disabled = false;
+        }
+  }
+
+  function validator(form){
+    var inputs = form.getElementsByTagName('input');
+    for (var i = 0; i < inputs.length; i++) {
+            if(inputs[i].value == ""){
+                alert("Please fill all the fields!");
+                return false;
+            }
+          }
+          return true;
+  }
+ 
+</script>
+</body>
+</html>
+
+web.xml
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<web-app>
+	<servlet>
+		<servlet-name>ajaxform</servlet-name>
+		<servlet-class>AjaxFormServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ajaxform</servlet-name>
+		<url-pattern>/AjaxFormServlet</url-pattern>
+	</servlet-mapping>
+</web-app>
