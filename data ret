@@ -1,0 +1,67 @@
+<html>  
+<body align="center" text="white" style="background-color:green" >  
+<form action="http://localhost:2010/jsp3/retdata.jsp" method="post">  
+<h1>  
+<br><br><br>
+REGISTER NO : <input type="text" name="RegNo"/><br/><br/>  
+<input type="submit" value="SUBMIT"/>  
+ </h1>
+</form>  
+</body>  
+</html>  
+
+jsp
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%
+String driver = "com.mysql.jdbc.Driver";
+String connectionUrl = "jdbc:mysql://localhost:3306/organisation";
+String database = "organisation";
+String userid = "root";
+String password = "goAl@2022";
+try {
+Class.forName(driver);
+} catch (ClassNotFoundException e) {
+e.printStackTrace();
+}
+Connection connection = null;
+Statement statement = null;
+ResultSet resultSet = null;
+%>
+<!DOCTYPE html>
+<html>
+<body>
+<table border="1">
+<tr>
+<td>REGISTATION NO</td>
+<td>NAME</td>
+<td>DEPARTMENT</td>
+<td>EMAIL</td>
+</tr>
+<%
+try{
+connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/organisation","root","sandy@6");
+statement=connection.createStatement();
+String z=request.getParameter("RegNo");
+String sql ="select * from regstudent where RegNo='"+z+"'";
+resultSet = statement.executeQuery(sql);
+while(resultSet.next()){
+%>
+<tr>
+<td><%=resultSet.getString("RegNo") %></td>
+<td><%=resultSet.getString("name") %></td>
+<td><%=resultSet.getString("dept") %></td>
+<td><%=resultSet.getString("email") %></td>
+</tr>
+<%
+}
+connection.close();
+} catch (Exception e) {
+e.printStackTrace();
+}
+%>
+</table>
+</body>
+</html>
